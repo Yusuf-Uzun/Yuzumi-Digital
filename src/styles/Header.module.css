@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    flex-direction: column; /* Ändert die Ausrichtung der Elemente im Header von horizontal zu vertikal */
+    justify-content: start;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(145deg, var(--color-purple), var(--color-black));
+    color: var(--color-cream);
+    position: fixed; /* Fixiert den Header am oberen Rand */
+    top: 0; /* Setzt den Header an den oberen Rand des Viewports */
+    left: 0; /* Setzt den Header an den linken Rand des Viewports */
+    height: 100%; /* Stellt sicher, dass der Header die volle Höhe einnimmt */
+    width: auto; /* Passt die Breite automatisch an den Inhalt an */
+    z-index: 1000; /* Stellt sicher, dass der Header über anderen Elementen liegt */
+}
+
+.headerNav {
+    display: flex;
+    gap: 20px;
+    backdrop-filter: blur(5px); /* Fügt den Verschwommenheitseffekt hinzu */
+}
+
+.headerNavItem {
+    color: #f0eada;
+    padding-left: 1em;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.headerNavItem:hover {
+    color: #fdd023;
+}

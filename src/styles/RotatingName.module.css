@@ -1,5 +1,58 @@
+/* RotatingName.module.css */
 .futuristicH1 {
-	font-family: 'Orbitron', sans-serif;
-	color: #f0eada;
-	text-align: center;
+    color: #f0eada; /* Grüne Farbe */
+    text-align: center;
+    font-size: 3em;
+    /* Übergangs-Effekte für Ein- und Ausblenden */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    opacity: 1; /* Startwert der Opazität */
+    transform: scale(1); /* Startwert der Skalierung */
+}
+
+.hidden {
+    /* Animationen für das Ausblenden */
+    animation: fadeOut 1s forwards, scaleDown 1s forwards;
+}
+
+.fadeIn {
+    /* Animationen für das Einblenden */
+    animation: fadeIn 1s forwards, scaleUp 1s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1; /* Sichtbar */
+    }
+    100% {
+        opacity: 0; /* Unsichtbar */
+    }
+}
+
+@keyframes scaleDown {
+    0% {
+        transform: scale(1); /* Keine Veränderung */
+    }
+    100% {
+        transform: scale(0.95); /* Leicht verkleinern */
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0; /* Unsichtbar */
+        transform: scale(0.95); /* Verkleinert */
+    }
+    100% {
+        opacity: 1; /* Sichtbar */
+        transform: scale(1); /* Zurück zur normalen Größe */
+    }
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.95); /* Verkleinert */
+    }
+    100% {
+        transform: scale(1); /* Zurück zur normalen Größe */
+    }
 }
