@@ -13,6 +13,11 @@ html, body {
   --color-grey: #999999;
 }
 
+::selection {
+  background: #461d7c;
+  color: #fdd023;
+}
+
 .body {
   color: rgb(var(--color-black));
   background: linear-gradient(
