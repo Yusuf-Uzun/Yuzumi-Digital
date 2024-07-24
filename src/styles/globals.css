@@ -1,11 +1,16 @@
+/* Korrigierte Version von globals.css */
+
+/* Setzt Basis-Styles für html und body */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
+  background-color: var(--color-black);
 }
 
-.root {
+/* Definiert Farbvariablen für einfache Wiederverwendung */
+:root {
   --color-purple: #461d7c;
   --color-yellow: #fdd023;
   --color-cream: #f0eada;
@@ -13,17 +18,18 @@ html, body {
   --color-grey: #999999;
 }
 
+/* Stil für Textauswahl */
 ::selection {
-  background: #461d7c;
-  color: #fdd023;
+  background: var(--color-purple);
+  color: var(--color-yellow);
 }
 
+/* Stil für Elemente mit der Klasse .body */
 .body {
-  color: rgb(var(--color-black));
+  color: var(--color-black);
   background: linear-gradient(
       to bottom,
       transparent,
-      rgb(var(--color-black))
-    )
-    rgb(var(--color-black));
+      var(--color-black)
+    );
 }

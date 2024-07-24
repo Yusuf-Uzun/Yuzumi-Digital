@@ -41,7 +41,7 @@ const RotatingName: React.FC = () => {
     return (
         <>
             <h1 className={styles.futuristicH1}>
-                <span>WEBSITES WHICH</span>
+                <span>WEBSITES THAT</span>
                 <br />
                 <span className={`${isHidden ? styles.hidden : styles.fadeIn}`}>
                     {currentWord}
