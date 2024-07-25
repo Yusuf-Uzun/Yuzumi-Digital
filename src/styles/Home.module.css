@@ -20,13 +20,17 @@
 }
 
 .containerRight {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #f0eada;
     width: 100%;
     height: 100vh;
     transition: opacity 1s ease-in-out;
     z-index: 2;
+    position: relative; /* Wichtig für die Positionierung der Kreise */
+    overflow: hidden; /* Verhindert Überlauf */
 }
-
 .parallaxLayer {
     position: absolute; /* Ermöglicht das Überlagern von Layern */
     width: 100%;
