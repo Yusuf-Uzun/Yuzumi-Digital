@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '@/styles/RotatingName.module.css';
 
 
-const words = ["INSPIRE", "ATTRACTS", "EMPOWER", "INNOVATE", "PERFORM", "SHINE"];
+const words = ["INSPIRE", "ATTRACT", "EMPOWER", "INNOVATE", "PERFORM", "SHINE"];
 
 const RotatingName: React.FC = () => {
     const [currentWord, setCurrentWord] = useState(words[0]);

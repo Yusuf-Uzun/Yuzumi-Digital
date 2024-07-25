@@ -7,7 +7,7 @@
 .containerLeft, .containerRight {
     transition: transform 0.5s ease; /* Übergangseffekt hinzugefügt */
   }
-  
+
 .containerLeft {
     display: flex;
     justify-content: center;

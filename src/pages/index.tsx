@@ -12,7 +12,9 @@ export default function Home() {
             <div className={styles.containerLeft}>
               <RotatingName />
             </div>
-            <div className={styles.containerRight} />
+            <div className={styles.containerRight}>
+              
+            </div>
           </div>
         </Parallax>
         <Parallax speed={50}> {/* Geschwindigkeit angepasst für visuellen Effekt */}
