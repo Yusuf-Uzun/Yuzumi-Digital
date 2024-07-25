@@ -75,7 +75,10 @@ const AnimatedSquare: React.FC = () => {
         style={{ width: "100%", height: "100%" }}
       >
         <motion.div
-          animate={{ rotate: 360 }}
+          animate={{ 
+            scale: [1, 1.2, 1.2, 1, 1],
+            rotate: 360,
+          }}
           transition={{ 
             duration: 4, 
             repeat: Infinity,

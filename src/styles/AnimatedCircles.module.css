@@ -15,6 +15,6 @@
     background: radial-gradient(circle, #f0eada, #d4c4b7, #b8a09b, #9d7c7f, #825863);
     width: 60px;
     height: 60px;
-    border-radius: 50%;
+    border-radius: 25%;
     position: absolute;
 }
