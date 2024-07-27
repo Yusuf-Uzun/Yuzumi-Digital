@@ -18,7 +18,7 @@ const SuccessfulInfo: React.FC = () => {
     ];
 
     return (
-        <div>
+        <div className={styles.counterDiv}>
             {counters.map((counter, index) => (
                 <Counter
                     key={index}
