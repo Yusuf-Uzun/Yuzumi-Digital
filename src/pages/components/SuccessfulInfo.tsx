@@ -1,34 +1,42 @@
-import { motion, animate, useMotionValue, useTransform } from 'framer-motion';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import styles from '@/styles/Information.module.css';
+import Counter from './Counter';
 
-export default function SuccessfulInfo() {
-    const countSuccessfulCustomer = useMotionValue(30);
-    const roundedSuccessfulCustomer = useTransform(countSuccessfulCustomer, Math.round);
-  
+const SuccessfulInfo = () => {
+    const counters = [
+        { start: 30, end: 82, duration: 5, label: "Happy Customers" },
+        { start: 30, end: 225, duration: 5, label: "More Visibility" },
+        { start: 30, end: 100, duration: 5, label: "Success" }
+    ];
+
+    const [scrollY, setScrollY] = useState(0);
+
     useEffect(() => {
-      const animation = animate(countSuccessfulCustomer, 82, { duration: 4 });
-  
-      return animation.stop;
+        const handleScroll = () => {
+            setScrollY(window.scrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
-  
+
     return (
-        <>
-            <div>
-                <motion.h1 style={{
-                    color:"#f0eada"}}>{roundedSuccessfulCustomer}</motion.h1>
-                <h1 style={{color:"#f0eada"}}>%</h1>
-            </div>
-            <div>
-                <motion.h1 style={{
-                    color:"#f0eada"}}>{roundedSuccessfulCustomer}</motion.h1>
-                <h1 style={{color:"#f0eada"}}>%</h1>
-            </div>
-            <div>
-                <motion.h1 style={{
-                    color:"#f0eada"}}>{roundedSuccessfulCustomer}</motion.h1>
-                <h1 style={{color:"#f0eada"}}>%</h1>
-            </div>
-            
-        </>
+        <div className={styles.successfulInfoContainer}>
+            {counters.map((counter, index) => (
+                <Counter
+                    key={index}
+                    start={counter.start}
+                    end={counter.end}
+                    duration={counter.duration}
+                    label={counter.label}
+                    index={index}
+                    scrollY={scrollY}
+                />
+            ))}
+        </div>
     );
-}
+};
+
+export default SuccessfulInfo;

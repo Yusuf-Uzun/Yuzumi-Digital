@@ -1,0 +1,47 @@
+/* Information.module.css */
+.successfulInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300vh; /* Höhe, um das Scrollen zu ermöglichen */
+    padding: 50px;
+  }
+
+.counterContainer {
+  margin: 50px 0;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.counterContainer.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.label {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #f0eada;
+}
+
+/* Home.module.css */
+.containerRightSuccess {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000;
+    width: auto;
+    min-height: 200vh;
+    height: 100vh;
+    transition: opacity 1s ease-in-out;
+    z-index: 2;
+    position: relative;
+    overflow: hidden;
+}
+
+.containerRightSuccess.animate {
+    /* Deine Animationseigenschaften hier */
+    opacity: 1; /* Beispiel */
+}
