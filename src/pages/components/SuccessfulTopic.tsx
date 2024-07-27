@@ -1,5 +1,4 @@
-import { useInView } from 'framer-motion';
-import React, { useRef, ReactNode } from 'react';
+import React, { useRef, useEffect, useState, ReactNode } from 'react';
 
 interface SectionProps {
   children: ReactNode;
@@ -7,7 +6,28 @@ interface SectionProps {
 
 function Section({ children }: SectionProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.5, // Adjust the threshold as needed
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [ref]);
 
   return (
     <section ref={ref}>
