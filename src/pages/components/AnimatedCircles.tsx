@@ -16,20 +16,21 @@ interface SquareProps {
   rowIndex: number;
   x: MotionValue<number>;
   y: MotionValue<number>;
+  setIsDragging: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const grid = [[0, 1, 2, 3], [6, 7, 8, 9], [12, 13, 14, 15], [18, 19, 20, 21]];
 const size = 60;
 const gap = 10;
 
-const Square: React.FC<SquareProps> = ({ active, setActive, colIndex, rowIndex, x, y }) => {
+const Square: React.FC<SquareProps> = ({ active, setActive, colIndex, rowIndex, x, y, setIsDragging }) => {
   const isDragging = colIndex === active.col && rowIndex === active.row;
   const d = distance(
     { x: active.col, y: active.row },
     { x: colIndex, y: rowIndex }
   );
   const springConfig = {
-    stiffness: Math.max(700 - d * 120, 0),
+    stiffness: Math.max(300 - d * 40, 20),
     damping: 20 + d * 5
   };
   const dx = useSpring(x, springConfig);
@@ -39,6 +40,7 @@ const Square: React.FC<SquareProps> = ({ active, setActive, colIndex, rowIndex, 
     x.set(0);
     y.set(0);
     setActive({ row: 0, col: 0 });
+    setIsDragging(false);
   };
 
   return (
@@ -47,7 +49,10 @@ const Square: React.FC<SquareProps> = ({ active, setActive, colIndex, rowIndex, 
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       dragTransition={{ bounceStiffness: 500, bounceDamping: 20 }}
       dragElastic={1}
-      onDragStart={() => setActive({ row: rowIndex, col: colIndex })}
+      onDragStart={() => {
+        setActive({ row: rowIndex, col: colIndex });
+        setIsDragging(true);
+      }}
       onDragEnd={handleDragEnd}
       className={styles.circle}
       style={{
@@ -63,6 +68,7 @@ const Square: React.FC<SquareProps> = ({ active, setActive, colIndex, rowIndex, 
 
 const AnimatedSquare: React.FC = () => {
   const [active, setActive] = useState<Active>({ row: 0, col: 0 });
+  const [isDragging, setIsDragging] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -75,11 +81,11 @@ const AnimatedSquare: React.FC = () => {
         style={{ width: "100%", height: "100%" }}
       >
         <motion.div
-          animate={{ 
+          animate={isDragging ? {} : { 
             scale: [1, 1.2, 1.2, 1, 1],
             rotate: 360,
           }}
-          transition={{ 
+          transition={isDragging ? {} : { 
             duration: 4, 
             repeat: Infinity,
             ease: "easeInOut", 
@@ -88,7 +94,7 @@ const AnimatedSquare: React.FC = () => {
             display: "flex",
             width: (size + gap) * 4 - gap,
             height: (size + gap) * 4 - gap,
-            top: "42%",
+            top: "40%",
             left: "50%",
             transform: "translate(-50%, -50%)",
             position: "relative",
@@ -105,6 +111,7 @@ const AnimatedSquare: React.FC = () => {
                 rowIndex={rowIndex}
                 colIndex={colIndex}
                 key={rowIndex + colIndex}
+                setIsDragging={setIsDragging}
               />
             ))
           )}

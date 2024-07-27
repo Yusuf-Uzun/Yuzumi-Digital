@@ -16,7 +16,8 @@ function Section({ children }: SectionProps) {
           transform: isInView ? "none" : "translateX(-200px)",
           opacity: isInView ? 1 : 0,
           transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.5s",
-          color: "#f0eada"
+          color: "#f0eada",
+          fontSize: "2em"
         }}
       >
         {children}
@@ -25,10 +26,10 @@ function Section({ children }: SectionProps) {
   );
 }
 
-export default function Information() {
+export default function SuccessfulTopic() {
   return (
     <>
-      <Section>First Section</Section>
+      <Section>SUCCESS</Section>
     </>
   );
 }
