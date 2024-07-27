@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from '@/styles/Information.module.css';
-import Counter from './Counter';
+import { animate, motion, useMotionValue, useTransform, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const SuccessfulInfo = () => {
     const counters = [
@@ -9,33 +10,45 @@ const SuccessfulInfo = () => {
         { start: 30, end: 100, duration: 5, label: "Success" }
     ];
 
-    const [scrollY, setScrollY] = useState(0);
+    const count = useMotionValue(70);
+    const roundedCount = useTransform(count, value => `${Math.round(value)}%`);
+    const controls = useAnimation();
+    const [ref, inView] = useInView({
+        triggerOnce: true, // Only trigger the animation once
+        threshold: 0.5, // Trigger when 50% of the component is in view
+    });
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrollY(window.scrollY);
-        };
+        if (inView) {
+            const animation = animate(count, 100, { duration: 4 });
+            return animation.stop;
+        }
+    }, [inView, count]);
 
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    useEffect(() => {
+        if (inView) {
+            controls.start({
+                opacity: 1,
+                scale: 1,
+                transition: {
+                    duration: 0.8,
+                    delay: 0.5,
+                    ease: [0, 0.71, 0.2, 1.01]
+                }
+            });
+        }
+    }, [inView, controls]);
 
     return (
-        <div className={styles.successfulInfoContainer}>
-            {counters.map((counter, index) => (
-                <Counter
-                    key={index}
-                    start={counter.start}
-                    end={counter.end}
-                    duration={counter.duration}
-                    label={counter.label}
-                    index={index}
-                    scrollY={scrollY}
-                />
-            ))}
-        </div>
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={controls}
+            className="box"
+        >
+            <motion.h1 style={{ color: "#f0eada" }}>{roundedCount}</motion.h1>
+            <p className={styles.label}>Happy Customers</p>
+        </motion.div>
     );
 };
 

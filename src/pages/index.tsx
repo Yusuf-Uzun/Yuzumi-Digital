@@ -36,7 +36,7 @@ export default function Home() {
         <div ref={stickyRef} className={styles.containerLeftSuccess}>
           <SuccessfulTopic />
         </div>
-        <div className={`${styles.containerRightSuccess} ${isSticky ? styles.animate : ''}`}>
+        <div className={styles.containerRightSuccess}>
           <SuccessfulInfo />
         </div>
       </div>
