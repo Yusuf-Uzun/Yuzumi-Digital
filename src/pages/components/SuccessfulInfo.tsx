@@ -3,27 +3,51 @@ import styles from '@/styles/Information.module.css';
 import { animate, motion, useMotionValue, useTransform, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
-const SuccessfulInfo = () => {
+interface CounterProps {
+    start: number;
+    end: number;
+    duration: number;
+    label: string;
+}
+
+const SuccessfulInfo: React.FC = () => {
     const counters = [
-        { start: 30, end: 82, duration: 5, label: "Happy Customers" },
-        { start: 30, end: 225, duration: 5, label: "More Visibility" },
-        { start: 30, end: 100, duration: 5, label: "Success" }
+        { start: 60, end: 82, duration: 3, label: "Happy Customers" },
+        { start: 150, end: 225, duration: 3, label: "More Visibility" },
+        { start: 70, end: 100, duration: 3, label: "More Success" }
     ];
 
-    const count = useMotionValue(70);
+    return (
+        <div>
+            {counters.map((counter, index) => (
+                <Counter
+                    key={index}
+                    start={counter.start}
+                    end={counter.end}
+                    duration={counter.duration}
+                    label={counter.label}
+                />
+            ))}
+        </div>
+    );
+};
+
+const Counter: React.FC<CounterProps> = ({ start, end, duration, label }) => {
+    const count = useMotionValue(start);
     const roundedCount = useTransform(count, value => `${Math.round(value)}%`);
     const controls = useAnimation();
-    const [ref, inView] = useInView({
-        triggerOnce: true, // Only trigger the animation once
-        threshold: 0.5, // Trigger when 50% of the component is in view
+    const [ref, inView, entry] = useInView({
+        threshold: 0.5,
     });
 
     useEffect(() => {
         if (inView) {
-            const animation = animate(count, 100, { duration: 4 });
-            return animation.stop;
+            const animation = animate(count, end, { duration });
+            return () => animation.stop();
+        } else {
+            count.set(start); // Reset the count to start value when it leaves view
         }
-    }, [inView, count]);
+    }, [inView, count, start, end, duration]);
 
     useEffect(() => {
         if (inView) {
@@ -36,6 +60,8 @@ const SuccessfulInfo = () => {
                     ease: [0, 0.71, 0.2, 1.01]
                 }
             });
+        } else {
+            controls.start({ opacity: 0, scale: 0.5 });
         }
     }, [inView, controls]);
 
@@ -46,8 +72,8 @@ const SuccessfulInfo = () => {
             animate={controls}
             className="box"
         >
-            <motion.h1 style={{ color: "#f0eada" }}>{roundedCount}</motion.h1>
-            <p className={styles.label}>Happy Customers</p>
+            <motion.h1 style={{ color: "#461d7c" }}>{roundedCount}</motion.h1>
+            <p className={styles.label}>{label}</p>
         </motion.div>
     );
 };

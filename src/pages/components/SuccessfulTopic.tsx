@@ -29,7 +29,7 @@ function Section({ children }: SectionProps) {
 export default function SuccessfulTopic() {
   return (
     <>
-      <Section>DEFINE SUCCESS</Section>
+      <Section>"DEFINE SUCCESS"</Section>
     </>
   );
 }
