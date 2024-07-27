@@ -12,7 +12,7 @@ interface CounterProps {
 
 const SuccessfulInfo: React.FC = () => {
     const counters = [
-        { start: 60, end: 82, duration: 3, label: "Happy Customers" },
+        { start: 60, end: 82, duration: 3, label: "More Customers" },
         { start: 150, end: 225, duration: 3, label: "More Visibility" },
         { start: 70, end: 100, duration: 3, label: "More Success" }
     ];
