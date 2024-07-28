@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@motionone/utils": "^10.18.0",
     "@next/font": "^14.2.5",
     "@popmotion/popcorn": "^0.4.4",
     "eslint": "^8.57.0",

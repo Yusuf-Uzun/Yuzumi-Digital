@@ -4,6 +4,7 @@ import RotatingName from './components/RotatingName';
 import AnimatedSquare from './components/AnimatedCircles';
 import SuccessfulTopic from './components/SuccessfulTopic';
 import SuccessfulInfo from './components/SuccessfulInfo';
+import PartnersAnimation from './components/PartnersAnimation';
 
 export default function Home() {
   const [isSticky, setIsSticky] = useState(false);
@@ -23,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <>
       <div className={styles.appBody}>
         <div className={styles.containerLeft}>
           <RotatingName />
@@ -40,6 +41,9 @@ export default function Home() {
           <SuccessfulInfo />
         </div>
       </div>
-    </div>
+      <div className={styles.appBody}>
+        <PartnersAnimation />
+      </div>
+    </>
   );
 }
