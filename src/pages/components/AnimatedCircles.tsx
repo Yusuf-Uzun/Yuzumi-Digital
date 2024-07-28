@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useState } from "react";
-import { motion, useMotionValue, useSpring, MotionValue } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useMotionValue, useSpring, useInView, MotionValue } from "framer-motion";
 import { distance } from "@popmotion/popcorn";
 import styles from "@/styles/AnimatedCircles.module.css";
 
@@ -24,6 +24,8 @@ const size = 60;
 const gap = 10;
 
 const Square: React.FC<SquareProps> = ({ active, setActive, colIndex, rowIndex, x, y, setIsDragging }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false });
   const isDragging = colIndex === active.col && rowIndex === active.row;
   const d = distance(
     { x: active.col, y: active.row },
@@ -45,6 +47,7 @@ const Square: React.FC<SquareProps> = ({ active, setActive, colIndex, rowIndex, 
 
   return (
     <motion.div
+      ref={ref}
       drag
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       dragTransition={{ bounceStiffness: 500, bounceDamping: 20 }}
@@ -55,6 +58,9 @@ const Square: React.FC<SquareProps> = ({ active, setActive, colIndex, rowIndex, 
       }}
       onDragEnd={handleDragEnd}
       className={styles.circle}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
       style={{
         top: rowIndex * (size + gap),
         left: colIndex * (size + gap),
@@ -71,25 +77,29 @@ const AnimatedSquare: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false });
 
   return (
     <div className={styles.app}>
       <motion.div
-        animate={{ "--base-hue": 360 } as any}
+        ref={ref}
+        animate={isInView ? { "--base-hue": 360 } as any : { "--base-hue": 0 } as any}
         initial={{ "--base-hue": 0 } as any}
         transition={{ duration: 10, loop: Infinity, ease: "linear" }}
         style={{ width: "100%", height: "100%" }}
       >
         <motion.div
-          animate={isDragging ? {} : { 
+          animate={isInView && !isDragging ? {
             scale: [1, 1.2, 1.2, 1, 1],
-            rotate: 360,
-          }}
-          transition={isDragging ? {} : { 
-            duration: 4, 
+            rotate: 360
+          } : {}}
+          transition={isInView && !isDragging ? {
+            duration: 4,
             repeat: Infinity,
-            ease: "easeInOut", 
-            repeatDelay: 2}}
+            ease: "easeInOut",
+            repeatDelay: 2
+          } : {}}
           style={{
             display: "flex",
             width: (size + gap) * 4 - gap,

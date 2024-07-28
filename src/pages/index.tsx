@@ -5,6 +5,8 @@ import AnimatedSquare from './components/AnimatedCircles';
 import SuccessfulTopic from './components/SuccessfulTopic';
 import SuccessfulInfo from './components/SuccessfulInfo';
 import PartnersAnimation from './components/PartnersAnimation';
+import ServicesTopic from './components/ServicesTopic';
+import ServicesInfo from './components/ServicesInfo';
 
 export default function Home() {
   const [isSticky, setIsSticky] = useState(false);
@@ -42,7 +44,12 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.appBody}>
-        <PartnersAnimation />
+        <div ref={stickyRef} className={styles.containerLeftSuccess}>
+          <ServicesTopic />
+        </div>
+        <div className={styles.containerRightSuccess}>
+          <ServicesInfo />
+        </div>
       </div>
     </>
   );
